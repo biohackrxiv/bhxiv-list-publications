@@ -1,0 +1,13 @@
+{
+  "@context": "https://biohackrxiv.org/ns/ledger-context.jsonld",
+  "@type": "schema:ScholarlyArticle",
+  "@id": "https://doi.org/10.5281/zenodo.24629504",
+  "identifier": "10.5281/zenodo.24629504",
+  "title": "BioHackrXiv template this is an example of a (too) long title mpla mpla mpla mpla mpla mpla mpla mpla mpla mpla mpla c wjfc wjknwjek nwjkwen jk",
+  "type": "Text",
+  "publisher": "BioHackrXiv",
+  "event": "accepted",
+  "dateAccepted": "2026-11-28T15:02:15+00:00",
+  "pdfSha256": "70e9a950b5724d7ca0901d98a2ecae06c22d179f03f08cb3762769b95e8ef2eb",
+  "isVersionOf": "https://doi.org/10.5281/zenodo.24466632"
+}

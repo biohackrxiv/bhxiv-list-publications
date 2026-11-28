@@ -1,0 +1,61 @@
+name: ledger
+
+# Every record is a public claim about a published paper, so nothing lands on main
+# without the check in `xiv-publish ledger verify`.  index.json is regenerated here
+# rather than trusted, so it cannot drift from the records it summarises.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out the ledger
+        uses: actions/checkout@v4
+
+      # The tool that writes and checks the records.  Pinned to a ref so a change
+      # in the tool cannot silently change what this repository accepts.
+      - name: check out xiv-publish
+        uses: actions/checkout@v4
+        with:
+          repository: biohackrxiv/xiv-publish
+          ref: main
+          path: .xiv-publish
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # xiv-publish reads paper.md with PyYAML; the ledger code itself is stdlib.
+      - name: install the tool's one dependency
+        run: pip install --quiet pyyaml
+
+      - name: verify every record
+        env:
+          PYTHONPATH: ${{ github.workspace }}/.xiv-publish
+        run: python -m xiv_publish ledger verify .
+
+      - name: regenerate index.json
+        env:
+          PYTHONPATH: ${{ github.workspace }}/.xiv-publish
+        run: python -m xiv_publish ledger index .
+
+      - name: commit the regenerated index
+        if: github.event_name == 'push'
+        run: |
+          if git diff --quiet -- index.json; then
+            echo "index.json is already up to date"
+            exit 0
+          fi
+          git config user.name  "bhxiv-ledger"
+          git config user.email "bhxiv@thebird.nl"
+          git add index.json
+          git commit --quiet -m "Regenerate index.json"
+          git push

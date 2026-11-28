@@ -118,6 +118,13 @@ xiv-publish ledger verify .
 xiv-publish ledger index .
 ```
 
+The workflow takes that tool from
+[biohackrxiv/xiv-publish](https://github.com/biohackrxiv/xiv-publish) at `main` — the
+same repository that writes the records, so the checker and the writer cannot drift
+apart for long.  It then fails the run if the regenerated index does not account for
+every accepted record, so a checkout of the tool that cannot read the records fails
+loudly instead of publishing an empty list.
+
 `verify` checks that every key in every record is defined in the context (JSON-LD
 fails quietly, so a misspelled key would otherwise be a property nobody understands),
 that the required fields are present, that `@id`, `identifier` and the file name agree,

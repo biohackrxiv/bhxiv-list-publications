@@ -34,15 +34,6 @@
   "license": "https://creativecommons.org/publicdomain/zero/1.0/",
   "name": "BioHackrXiv accepted preprints",
   "description": "Every version of every paper this venue has accepted. Descriptive metadata is not copied here: resolve the DOI for authors, abstract, licence and files.",
-  "dateModified": "2026-11-28T11:43:55+00:00",
-  "hasPart": [
-    {
-      "@type": "ScholarlyArticle",
-      "@id": "https://doi.org/10.5281/zenodo.24496261",
-      "identifier": "10.5281/zenodo.24496261",
-      "title": "BioHackrXiv template this is an example of a (too) long title mpla mpla mpla mpla mpla mpla mpla mpla mpla mpla mpla c wjfc wjknwjek nwjkwen jk",
-      "dateAccepted": "2026-11-28T11:43:55+00:00",
-      "isVersionOf": "https://doi.org/10.5281/zenodo.24466632"
-    }
-  ]
+  "dateModified": null,
+  "hasPart": []
 }

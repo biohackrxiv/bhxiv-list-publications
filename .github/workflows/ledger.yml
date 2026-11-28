@@ -47,6 +47,20 @@ jobs:
           PYTHONPATH: ${{ github.workspace }}/.xiv-publish
         run: python -m xiv_publish ledger index .
 
+      # A stale checkout of the tool would read yesterday's file extension, find no
+      # records, and commit an empty index.  Better a red run than a quietly empty
+      # list of accepted papers.
+      - name: the index must account for every record
+        run: |
+          records=$(ls papers/*.jsonld papers/*.json 2>/dev/null | wc -l)
+          indexed=$(jq '[.hasPart[]] | length' index.json)
+          accepted=$(jq -s '[.[] | select(.event == "accepted")] | length' papers/*.jsonld papers/*.json 2>/dev/null || echo 0)
+          echo "records: $records  accepted: $accepted  indexed: $indexed"
+          if [ "$accepted" != "$indexed" ]; then
+            echo "::error::the index lists $indexed papers but $accepted records are accepted"
+            exit 1
+          fi
+
       - name: commit the regenerated index
         if: github.event_name == 'push'
         run: |

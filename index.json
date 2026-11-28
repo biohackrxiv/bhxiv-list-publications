@@ -1,7 +1,37 @@
 {
-  "@context": "https://biohackrxiv.org/ns/ledger-context.jsonld",
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "name": "schema:name",
+    "description": "schema:description",
+    "license": {
+      "@id": "schema:license",
+      "@type": "@id"
+    },
+    "dateModified": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+    "hasPart": {
+      "@id": "schema:hasPart",
+      "@container": "@set"
+    },
+    "identifier": "dcterms:identifier",
+    "title": "dcterms:title",
+    "dateAccepted": {
+      "@id": "dcterms:dateAccepted",
+      "@type": "xsd:dateTime"
+    },
+    "isVersionOf": {
+      "@id": "dcterms:isVersionOf",
+      "@type": "@id"
+    }
+  },
   "@type": "schema:Dataset",
   "@id": "https://index.biohackrxiv.org/ledger.json",
+  "license": "https://creativecommons.org/publicdomain/zero/1.0/",
   "name": "BioHackrXiv accepted preprints",
   "description": "Every version of every paper this venue has accepted. Descriptive metadata is not copied here: resolve the DOI for authors, abstract, licence and files.",
   "dateModified": "2026-11-28T11:43:55+00:00",
